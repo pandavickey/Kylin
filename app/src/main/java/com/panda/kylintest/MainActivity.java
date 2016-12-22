@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PatchLoader.loadPatch(getApplication(), Environment.getExternalStorageDirectory().getPath() + File.separator + "patch_dex.jar");
+                PatchLoader.loadPatch(getApplication(), Environment.getExternalStorageDirectory().getPath() + File.separator + "patch_dex.dex");
                 Toast.makeText(MainActivity.this, "load success", Toast.LENGTH_LONG).show();
             }
         });
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    String getToastString() {
+    public String getToastString() {
         return "hello world";
     }
 }

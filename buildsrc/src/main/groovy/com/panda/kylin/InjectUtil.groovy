@@ -62,6 +62,7 @@ public class InjectUtil {
                                 c.defrost()
                             }
                             pool.importPackage("com.panda.kylin.Kylin")
+                            pool.importPackage("com.panda.kylin.KylinMethodSupport")
 
                             //给类添加kylin变量，即补丁变量
                             CtField kylin = new CtField(pool.get("com.panda.kylin.Kylin"), "mKylin", c);
@@ -73,12 +74,12 @@ public class InjectUtil {
                             for (CtMethod method : methods) {
                                 //在每个方法之前插入判断语句，判断类的补丁实例是否存在
                                 StringBuilder injectStr = new StringBuilder();
-                                injectStr.append("if(mKylin!=null){\n")
+                                injectStr.append("if(mKylin!=null && KylinMethodSupport.isSupport(mKylin.getClass(),\"" + method.getName() + "\")){\n")
                                 String javaThis = "null,"
                                 if (!Modifier.isStatic(method.getModifiers())) {
                                     javaThis = "this,"
                                 }
-                                String runStr = "mKylin.dispatchMethod(" + javaThis + "\"" + method.getName() + "\" ,\$args)"
+                                String runStr = "mKylin.dispatchMethod(" + javaThis + "mKylin,\"" + method.getName() + "\" ,\$args)"
                                 injectStr.append(addReturnStr(method, runStr))
                                 injectStr.append("}")
                                 method.insertBefore(injectStr.toString())

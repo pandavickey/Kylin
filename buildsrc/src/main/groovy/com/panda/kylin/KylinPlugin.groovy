@@ -11,7 +11,8 @@ public class KylinPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
         def android = project.extensions.findByType(AppExtension)
-        android.registerTransform(new TransformUtil(project, android.getDefaultConfig().getApplicationId()))
+        def applicationId = android.getDefaultConfig().getApplicationId()
+        android.registerTransform(new TransformUtil(project, applicationId))
 
         boolean addTask = false;
         project.plugins.withId('com.android.application') {
