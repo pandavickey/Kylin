@@ -8,9 +8,9 @@ import com.panda.kylin.PatchMethodName;
  * Created by panda on 16/12/22.
  */
 @PatchClassName("com.panda.kylintest.MainActivity")
-public class MainActivityPatch extends Kylin{
+public class MainActivityPatch extends Kylin {
     @PatchMethodName("getToastString")
-    public String getToastString() {
-        return "fix bug";
+    public String getToastString(int a, int b) {
+        return "mutilx:" + (a * b);
     }
 }

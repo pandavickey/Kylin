@@ -29,12 +29,12 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.text).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, getToastString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, getToastString(3, 5), Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    public String getToastString() {
-        return "hello world";
+    public String getToastString(int a, int b) {
+        return "add:" + (a + b);
     }
 }
