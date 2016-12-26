@@ -14,33 +14,33 @@ public class KylinPlugin implements Plugin<Project> {
         def applicationId = android.getDefaultConfig().getApplicationId()
         android.registerTransform(new TransformUtil(project, applicationId))
 
-        boolean addTask = false;
-        project.plugins.withId('com.android.application') {
-            project.android.applicationVariants.all { ApkVariant variant ->
-                variant.outputs.each { BaseVariantOutput output ->
-                    def generateCodeTask = project.tasks.create(
-                            name: "generate${variant.name.capitalize()}PatchBox",
-                            type: GenerateCodeTask) {
-                        variantDirName variant.dirName
-                    }
-                    generateCodeTask.execute()
-
-                    variant.javaCompile.doFirst {
-                        variant.javaCompile.source generateCodeTask.outputDir()
-                    }
-                }
-
-                if (!addTask) {
-                    project.task('GenerateShell', type: GenerateShellTask, dependsOn: "transformClassesWithPreDexFor${variant.name.capitalize()}") {
-                    }
-
-                    project.tasks.create(name: "patchDex", type: Exec, dependsOn: 'GenerateShell') {
-                        workingDir "${project.buildDir}/outputs/patch/"
-                        commandLine './patchDex.sh', android.getBuildToolsVersion()
-                    }
-                    addTask = true
-                }
-            }
-        }
+//        boolean addTask = false;
+//        project.plugins.withId('com.android.application') {
+//            project.android.applicationVariants.all { ApkVariant variant ->
+//                variant.outputs.each { BaseVariantOutput output ->
+//                    def generateCodeTask = project.tasks.create(
+//                            name: "generate${variant.name.capitalize()}PatchBox",
+//                            type: GenerateCodeTask) {
+//                        variantDirName variant.dirName
+//                    }
+//                    generateCodeTask.execute()
+//
+//                    variant.javaCompile.doFirst {
+//                        variant.javaCompile.source generateCodeTask.outputDir()
+//                    }
+//                }
+//
+//                if (!addTask) {
+//                    project.task('GenerateShell', type: GenerateShellTask, dependsOn: "transformClassesWithPreDexFor${variant.name.capitalize()}") {
+//                    }
+//
+//                    project.tasks.create(name: "patchDex", type: Exec, dependsOn: 'GenerateShell') {
+//                        workingDir "${project.buildDir}/outputs/patch/"
+//                        commandLine './patchDex.sh', android.getBuildToolsVersion()
+//                    }
+//                    addTask = true
+//                }
+//            }
+//        }
     }
 }

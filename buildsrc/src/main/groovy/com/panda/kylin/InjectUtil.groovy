@@ -91,7 +91,7 @@ public class InjectUtil {
                     }
                 }
             }
-            FileUtils.copyFile(new File(path + "/com/panda/kylin/PatchBox.class"), new File(projectBuildDir + "/outputs/patch/com/panda/kylin/PatchBox.class"))
+//            FileUtils.copyFile(new File(path + "/com/panda/kylin/PatchBox.class"), new File(projectBuildDir + "/outputs/patch/com/panda/kylin/PatchBox.class"))
         }
     }
 
