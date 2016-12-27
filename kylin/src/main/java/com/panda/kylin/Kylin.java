@@ -9,14 +9,20 @@ import java.lang.reflect.Method;
 
 public class Kylin {
     private Object host;
-    protected Object dispatchMethod(Object host, Kylin kylin, String methodName, Object[] params) throws InvocationTargetException, IllegalAccessException {
-        for (Method method : getClass().getDeclaredMethods()) {
-            PatchMethodName patchMethodName = method.getAnnotation(PatchMethodName.class);
-            if (methodName.hashCode() == patchMethodName.value().hashCode()) {
-                kylin.setHost(host);
-                return method.invoke(kylin,params);
+
+    public Object dispatchMethod(Object host, Kylin kylin, String methodName, Object[] params) throws InvocationTargetException, IllegalAccessException {
+        try {
+            for (Method method : getClass().getDeclaredMethods()) {
+                PatchMethodName patchMethodName = method.getAnnotation(PatchMethodName.class);
+                if (methodName.hashCode() == patchMethodName.value().hashCode()) {
+                    kylin.setHost(host);
+                    return method.invoke(kylin, params);
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
         return null;
     }
 

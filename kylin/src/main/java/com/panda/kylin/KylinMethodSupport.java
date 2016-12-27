@@ -10,7 +10,6 @@ import java.lang.reflect.Method;
 
 public class KylinMethodSupport {
     public static boolean isSupport(Class patchClass, String methodName) {
-        Log.e("methodName", methodName);
         for (Method method : patchClass.getDeclaredMethods()) {
             PatchMethodName annotation = method.getAnnotation(PatchMethodName.class);
             if (annotation != null) {

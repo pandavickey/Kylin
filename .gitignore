@@ -7,3 +7,10 @@
 /build
 /captures
 .externalNativeBuild
+*.properties
+app/libs/
+app/src/androidTest/
+app/src/main/res/drawable/
+app/src/test/
+buildsrc/libs/
+kylin/libs/

@@ -8,8 +8,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/KylinPlugin" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/buildsrc" />
             <option value="$PROJECT_DIR$/kylin" />
           </set>
         </option>

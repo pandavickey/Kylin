@@ -1,1 +1,1 @@
-include ':app', ':buildsrc', ':kylin'
+include ':app', ':kylin', ':KylinPlugin'
