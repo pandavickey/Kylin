@@ -4,7 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Kylin.iml" filepath="$PROJECT_DIR$/Kylin.iml" />
       <module fileurl="file://$PROJECT_DIR$/KylinPlugin/KylinPlugin.iml" filepath="$PROJECT_DIR$/KylinPlugin/KylinPlugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KylinPlugin/KylinPlugin.iml" filepath="$PROJECT_DIR$/KylinPlugin/KylinPlugin.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kylin/kylin.iml" filepath="$PROJECT_DIR$/kylin/kylin.iml" />
       <module fileurl="file://$PROJECT_DIR$/kylin/kylin.iml" filepath="$PROJECT_DIR$/kylin/kylin.iml" />
     </modules>
   </component>

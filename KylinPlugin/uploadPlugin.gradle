@@ -3,7 +3,7 @@ apply plugin: 'maven-publish'
 
 // load properties
 Properties properties = new Properties()
-File localPropertiesFile = project.file("local.properties");
+File localPropertiesFile = project.rootProject.file("local.properties");
 if (localPropertiesFile.exists()) {
     properties.load(localPropertiesFile.newDataInputStream())
 }
@@ -15,7 +15,6 @@ if (projectPropertiesFile.exists()) {
 // read properties
 def projectName = properties.getProperty("project.name")
 def projectGroupId = properties.getProperty("project.groupId")
-def projectArtifactId = properties.getProperty("project.artifactId")
 def projectVersionName = properties.getProperty("project.version")
 def projectSiteUrl = properties.getProperty("project.siteUrl")
 def projectGitUrl = properties.getProperty("project.gitUrl")
@@ -28,7 +27,7 @@ def bintrayUser = properties.getProperty("bintray.user")
 def bintrayApikey = properties.getProperty("bintray.apikey")
 
 group = projectGroupId
-version =  projectVersionName
+version = projectVersionName
 
 install {
     repositories {
