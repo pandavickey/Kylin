@@ -4,11 +4,7 @@ import com.android.build.api.transform.DirectoryInput
 import com.android.build.api.transform.JarInput
 import com.android.build.api.transform.TransformInput
 import com.android.build.api.transform.TransformInvocation
-import javassist.ClassPool
-import javassist.CtClass
-import javassist.CtField
-import javassist.CtMethod
-import javassist.Modifier
+import javassist.*
 import org.apache.commons.io.FileUtils
 
 import java.lang.annotation.Annotation
@@ -48,7 +44,7 @@ public class InjectUtil {
                         String className = filePointPath.substring(index, end)
                         //开始修改class文件
                         CtClass c = pool.getCtClass(className)
-                        boolean isPatch = false;
+                        boolean isPatch = false
                         c.annotations.each {
                             Annotation annotation ->
                                 if (isPatchAnnotation(annotation)) {
@@ -57,6 +53,7 @@ public class InjectUtil {
                                     isPatch = true;
                                 }
                         }
+
                         if (!isPatch) {
                             if (c.isFrozen()) {
                                 c.defrost()
@@ -72,6 +69,7 @@ public class InjectUtil {
                             //遍历类的所有方法
                             CtMethod[] methods = c.getDeclaredMethods();
                             for (CtMethod method : methods) {
+                                print("signature:" + method.genericSignature+"\n")
                                 //在每个方法之前插入判断语句，判断类的补丁实例是否存在
                                 StringBuilder injectStr = new StringBuilder();
                                 injectStr.append("if(mKylin!=null && KylinMethodSupport.isSupport(mKylin.getClass(),\"" + method.getName() + "\")){\n")
@@ -96,7 +94,6 @@ public class InjectUtil {
     }
 
     public static boolean isPatchAnnotation(Annotation annotation) {
-        print("name:" + annotation.annotationType().getName() + "\n")
         return annotation.annotationType().getName().equalsIgnoreCase("com.panda.kylin.PatchClassName");
     }
 

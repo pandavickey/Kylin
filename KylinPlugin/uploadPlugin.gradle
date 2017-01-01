@@ -15,6 +15,7 @@ if (projectPropertiesFile.exists()) {
 // read properties
 def projectName = properties.getProperty("project.name")
 def projectGroupId = properties.getProperty("project.groupId")
+def projectArtifactId = properties.getProperty("project.artifactId")
 def projectVersionName = properties.getProperty("project.version")
 def projectSiteUrl = properties.getProperty("project.siteUrl")
 def projectGitUrl = properties.getProperty("project.gitUrl")
@@ -29,44 +30,47 @@ def bintrayApikey = properties.getProperty("bintray.apikey")
 group = projectGroupId
 version = projectVersionName
 
-install {
-    repositories {
-        mavenInstaller {
-            pom {
-                project {
-                    name projectName
-                    url projectSiteUrl
-                    licenses {
-                        license {
-                            name 'The Apache Software License, Version 2.0'
-                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                        }
-                    }
-                    developers {
-                        developer {
-                            id developerId
-                            name developerName
-                            email developerEmail
-                        }
-                    }
-                    scm {
-                        connection projectGitUrl
-                        developerConnection projectGitUrl
-                        url projectSiteUrl
-                    }
-                }
-            }
+def pomConfig = {
+    licenses {
+        license {
+            name "The Apache Software License, Version 2.0"
+            url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+            distribution "repo"
         }
-
+    }
+    developers {
+        developer {
+            id developerId
+            name developerName
+            email developerEmail
+        }
     }
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
-    from files(sourceSets.main.output.classesDir)
+    classifier = 'sources'
+    from sourceSets.main.allSource
 }
 
 artifacts {
     archives sourcesJar
+}
+
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+            groupId projectGroupId
+            artifactId projectArtifactId
+            version version
+
+            pom.withXml {
+                def root = asNode()
+                root.children().last() + pomConfig
+            }
+            artifact sourcesJar
+        }
+    }
 }
 
 // bintray configuration
@@ -79,6 +83,8 @@ bintray {
         name = projectName
         websiteUrl = projectSiteUrl
         vcsUrl = projectGitUrl
+        publications = ['MyPublication']
+        labels = ['gradle', 'plugin']
         licenses = ["Apache-2.0"]
         publish = true
     }

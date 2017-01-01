@@ -61,6 +61,8 @@ public class TransformUtil extends Transform {
                         directoryInput.contentTypes, directoryInput.scopes,
                         Format.DIRECTORY)
                 // 将input的目录复制到output指定目录
+
+
                 FileUtils.copyDirectory(directoryInput.file, dest)
             }
             //对类型为jar文件的input进行遍历
@@ -79,6 +81,8 @@ public class TransformUtil extends Transform {
                 FileUtils.copyFile(jarInput.file, dest)
             }
         }
+
+
     }
 
 

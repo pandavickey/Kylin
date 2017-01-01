@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.3"
@@ -24,5 +25,16 @@ dependencies {
     compile project(':kylin')
 }
 
+buildscript{
+    repositories{
+        maven{
+            url uri('../repo')
+        }
+        jcenter()
+    }
+    dependencies{
+        classpath 'com.panda:KylinPlugin:1.0.8'
+    }
+}
 
-
+//apply plugin: 'com.panda.kylin.KylinPlugin'
